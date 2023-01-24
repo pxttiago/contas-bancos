@@ -12,38 +12,38 @@ class ContaCorrente:
         horario_br = datetime.now(fuso_br)
         return horario_br.strftime('%d/%m/%Y %H:%M:%S')
 
-    # atributos
+    # atributos de instância
     def __init__(self, nome, cpf, agencia, num_conta):
-        self.nome = nome
-        self.cpf = cpf
-        self.saldo = 0
-        self.limite = None
-        self.agencia = agencia
-        self.num_conta = num_conta
-        self.transacoes = []
+        self._nome = nome
+        self._cpf = cpf
+        self._saldo = 0
+        self._limite = None
+        self._agencia = agencia
+        self._num_conta = num_conta
+        self._transacoes = []
 
     # método consulta do saldo da conta
     def consultar_saldo(self):
-        print('Seu saldo atual é de R$ {:_.2f}'.format(self.saldo).replace('.', ',').replace('_', '.'))
+        print('Seu saldo atual é de R$ {:_.2f}'.format(self._saldo).replace('.', ',').replace('_', '.'))
 
     # método depósito de valor
     def depositar_valor(self, valor):
-        self.saldo += valor
-        self.transacoes.append(('Depósito: R$ {}, Novo saldo: R$ {}, Data/Hora: {}'.format(valor, self.saldo, ContaCorrente._data_hora())))
+        self._saldo += valor
+        self._transacoes.append(('Depósito: R$ {}, Novo saldo: R$ {}, Data/Hora: {}'.format(valor, self._saldo, ContaCorrente._data_hora())))
 
     # método privado que define o limite para cheque especial
     def _limite_conta(self):
-        self.limite = -1000
-        return self.limite
+        self._limite = -1000
+        return self._limite
 
     # método saque de valor
     def sacar_valor(self, valor):
-        if self.saldo - valor < self._limite_conta():
+        if self._saldo - valor < self._limite_conta():
             print('Saldo insuficiente para realizar a transação.')
             self.consultar_saldo()
         else:
-            self.saldo -= valor
-            self.transacoes.append(('Saque: R$ {}, Novo saldo: R$ {}, Data/Hora: {}'.format(-valor, self.saldo, ContaCorrente._data_hora())))
+            self._saldo -= valor
+            self._transacoes.append(('Saque: R$ {}, Novo saldo: R$ {}, Data/Hora: {}'.format(-valor, self._saldo, ContaCorrente._data_hora())))
 
     # método para consultar limite de cheque especial
     def consultar_limite_chequeespecial(self):
@@ -51,14 +51,14 @@ class ContaCorrente:
 
     def historico_transacoes(self):
         print('Histórico de transações')
-        for transacao in self.transacoes:
+        for transacao in self._transacoes:
             print(transacao)
 
     def transferir_valor(self, conta_destino, valor):
-        self.saldo -= valor
-        self.transacoes.append(('Transferência: R$ {}, Novo saldo: R$ {}, Data/Hora: {}'.format(-valor, self.saldo, ContaCorrente._data_hora())))
-        conta_destino.saldo += valor
-        conta_destino.transacoes.append(('Transferência: R$ {}, Novo saldo: R$ {}, Data/Hora: {}'.format(valor, conta_destino.saldo, ContaCorrente._data_hora())))
+        self._saldo -= valor
+        self._transacoes.append(('Transferência: R$ {}, Novo saldo: R$ {}, Data/Hora: {}'.format(-valor, self._saldo, ContaCorrente._data_hora())))
+        conta_destino._saldo += valor
+        conta_destino._transacoes.append(('Transferência: R$ {}, Novo saldo: R$ {}, Data/Hora: {}'.format(valor, conta_destino._saldo, ContaCorrente._data_hora())))
 
 
 # programa
