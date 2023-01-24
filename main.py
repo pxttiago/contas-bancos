@@ -2,11 +2,13 @@
 class ContaCorrente:
 
     # atributos
-    def __init__(self, nome, cpf):
+    def __init__(self, nome, cpf, agencia, num_conta):
         self.nome = nome
         self.cpf = cpf
         self.saldo = 0
         self.limite = None
+        self.agencia = agencia
+        self.num_conta = num_conta
 
     # método consulta do saldo da conta
     def consultar_saldo(self):
@@ -36,7 +38,7 @@ class ContaCorrente:
 
 # programa
 # criando uma instância da classe ContaCorrente e consultando saldo inicial
-cc_fulano = ContaCorrente(nome='Fulano', cpf='999.888.777-66')
+cc_fulano = ContaCorrente(nome='Fulano', cpf='999.888.777-66', agencia='0123', num_conta='123456')
 cc_fulano.consultar_saldo()
 print('-=' * 20)
 
