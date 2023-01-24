@@ -1,5 +1,6 @@
 from datetime import datetime
 import pytz # ajuste de fuso horário
+from random import randint
 
 
 # criação da classe ContaCorrente
@@ -26,14 +27,14 @@ class ContaCorrente:
 
     # atributos de instância
     def __init__(self, nome, cpf, agencia, num_conta):
-        self._nome = nome
-        self._cpf = cpf
+        self.nome = nome
+        self.cpf = cpf
         self._saldo = 0
         self._limite = None
-        self._agencia = agencia
-        self._num_conta = num_conta
+        self.agencia = agencia
+        self.num_conta = num_conta
         self._transacoes = []
-        self._cartoes_credito = []
+        self.cartoes_credito = []
 
     # método consulta do saldo da conta
     def consultar_saldo(self):
@@ -78,14 +79,34 @@ class ContaCorrente:
 
 class CartaoCredito:
 
+    # método estático para armazenar informações de data e hora
+    @staticmethod
+    def _data_hora():
+        fuso_br = pytz.timezone('Brazil/East')
+        horario_br = datetime.now(fuso_br)
+        return horario_br
+
+    # atributos de instância
     def __init__(self, titular, conta_corrente):
-        self.num_cartao = None
-        self.validade = None
-        self.cod_seguranca = None
-        self.limite = None
+        self.num_cartao = randint(1000000000000000, 9999999999999999)
+        self.validade = '{}/{}'.format(CartaoCredito._data_hora().month, CartaoCredito._data_hora().year + 5)
+        self.cod_seguranca = '{}{}{}'.format(randint(0, 9), randint(0, 9), randint(0, 9))
+        self.limite = 1000
         self.titular = titular
         self.conta_corrente = conta_corrente
-        conta_corrente._cartoes_credito.append(self)
+        self._senha = '1234'
+        conta_corrente.cartoes_credito.append(self)
+
+    @property
+    def senha(self):
+        return self._senha
+
+    @senha.setter
+    def senha(self, valor):
+        if len(valor) == 4 and valor.isnumeric():
+            self._senha = valor
+        else:
+            print('Nova senha inválida.')
 
 
 # programa
@@ -95,6 +116,13 @@ cc_fulano = ContaCorrente(nome='Fulano', cpf='999.888.777-66', agencia=1234, num
 # criando uma instância da classe CartaoCredito
 cartao_fulano = CartaoCredito(titular='Fulano', conta_corrente=cc_fulano)
 
+#verificando os dados do cartão
+print(cartao_fulano.conta_corrente.num_conta)
+print(cartao_fulano.num_cartao)
+print(cartao_fulano.validade)
+print(cartao_fulano.cod_seguranca)
+print(cartao_fulano.senha)
+print('-=' * 20)
 
 
 
