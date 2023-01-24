@@ -54,10 +54,16 @@ class ContaCorrente:
         for transacao in self.transacoes:
             print(transacao)
 
+    def transferir_valor(self, conta_destino, valor):
+        self.saldo -= valor
+        self.transacoes.append(('Transferência: R$ {}, Novo saldo: R$ {}, Data/Hora: {}'.format(-valor, self.saldo, ContaCorrente._data_hora())))
+        conta_destino.saldo += valor
+        conta_destino.transacoes.append(('Transferência: R$ {}, Novo saldo: R$ {}, Data/Hora: {}'.format(valor, conta_destino.saldo, ContaCorrente._data_hora())))
+
 
 # programa
 # criando uma instância da classe ContaCorrente e consultando saldo inicial
-cc_fulano = ContaCorrente(nome='Fulano', cpf='999.888.777-66', agencia='0123', num_conta='123456')
+cc_fulano = ContaCorrente(nome='Fulano', cpf='999.888.777-66', agencia=1234, num_conta=123456)
 cc_fulano.consultar_saldo()
 print('-=' * 20)
 
@@ -83,6 +89,12 @@ print('-=' * 20)
 cc_fulano.historico_transacoes()
 print('-=' * 20)
 
+# transferir valor e consultar saldo da conta que enviou e da conta que recebeu
+cc_ciclano = ContaCorrente(nome='Ciclano', cpf='555.444.333-22', agencia=4567, num_conta=987654)
+cc_fulano.transferir_valor(cc_ciclano, 2500)
+cc_fulano.consultar_saldo()
+cc_ciclano.consultar_saldo()
+print('-=' * 20)
 
 
 
