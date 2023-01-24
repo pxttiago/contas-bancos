@@ -33,6 +33,7 @@ class ContaCorrente:
         self._agencia = agencia
         self._num_conta = num_conta
         self._transacoes = []
+        self._cartoes_credito = []
 
     # método consulta do saldo da conta
     def consultar_saldo(self):
@@ -75,40 +76,27 @@ class ContaCorrente:
         conta_destino._transacoes.append(('Transferência: R$ {}, Novo saldo: R$ {}, Data/Hora: {}'.format(valor, conta_destino._saldo, ContaCorrente._data_hora())))
 
 
+class CartaoCredito:
+
+    def __init__(self, titular, conta_corrente):
+        self.num_cartao = None
+        self.validade = None
+        self.cod_seguranca = None
+        self.limite = None
+        self.titular = titular
+        self.conta_corrente = conta_corrente
+        conta_corrente._cartoes_credito.append(self)
+
+
 # programa
-# criando uma instância da classe ContaCorrente e consultando saldo inicial
+# criando uma instância da classe ContaCorrente
 cc_fulano = ContaCorrente(nome='Fulano', cpf='999.888.777-66', agencia=1234, num_conta=123456)
-cc_fulano.consultar_saldo()
-print('-=' * 20)
 
-# depositando valor e consultando saldo
-cc_fulano.depositar_valor(10000)
-cc_fulano.consultar_saldo()
-print('-=' * 20)
+# criando uma instância da classe CartaoCredito
+cartao_fulano = CartaoCredito(titular='Fulano', conta_corrente=cc_fulano)
 
-# sacando valor e consultando saldo
-cc_fulano.sacar_valor(500)
-cc_fulano.consultar_saldo()
-print('-=' * 20)
 
-# tentativa de saque acima do saldo + limite
-cc_fulano.sacar_valor(15000)
-print('-=' * 20)
 
-# consultar limite de cheque especial
-cc_fulano.consultar_limite_chequeespecial()
-print('-=' * 20)
-
-# consultar histórico de transações
-cc_fulano.historico_transacoes()
-print('-=' * 20)
-
-# transferir valor e consultar saldo da conta que enviou e da conta que recebeu
-cc_ciclano = ContaCorrente(nome='Ciclano', cpf='555.444.333-22', agencia=4567, num_conta=987654)
-cc_fulano.transferir_valor(cc_ciclano, 2500)
-cc_fulano.consultar_saldo()
-cc_ciclano.consultar_saldo()
-print('-=' * 20)
 
 
 
