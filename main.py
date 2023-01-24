@@ -4,6 +4,18 @@ import pytz # ajuste de fuso horário
 
 # criação da classe ContaCorrente
 class ContaCorrente:
+    """
+    Cria um objeto ContaCorrente para gerenciar as contas dos clientes.
+
+    Atributos:
+        nome (str): Nome do cliente
+        cpf (str): CPF do cliente
+        agencia (int): Codigo da agência responsável pela conta do cliente
+        num_conta (int): Número da conta do cliente
+        saldo (float): Saldo disponível na conta do cliente (alterado apenas através dos métodos da classe)
+        limite (float): Limite disponível em conta para cheque especial (definido no método _limite_conta)
+        transacoes (list): Histórico das transações realizadas na conta do cliente (alterado apenas através dos métodos da classe)
+    """
 
     # método estático para armazenar informações de data e hora
     @staticmethod
@@ -49,11 +61,13 @@ class ContaCorrente:
     def consultar_limite_chequeespecial(self):
         print('Seu limite de cheque especial é de R$ {:_.2f}'.format(self._limite_conta()).replace('.', ',').replace('_', '.'))
 
+    # método para consulta do histórico de transações
     def historico_transacoes(self):
         print('Histórico de transações')
         for transacao in self._transacoes:
             print(transacao)
 
+    # método para tranferência de valores entre instâncias (contas)
     def transferir_valor(self, conta_destino, valor):
         self._saldo -= valor
         self._transacoes.append(('Transferência: R$ {}, Novo saldo: R$ {}, Data/Hora: {}'.format(-valor, self._saldo, ContaCorrente._data_hora())))
