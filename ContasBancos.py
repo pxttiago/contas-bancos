@@ -84,7 +84,12 @@ class CartaoCredito:
 
     Atributos:
         num_cartao (int): Número do cartão do cliente (gerado aleatóriamente)
-        validade (str):
+        validade (str): Prazo de validade do cartão (data criação + 5 anos)
+        cod_seguranca (str): Código de segurança do cartão (gerado aleatóriamente)
+        limite (int): Limite de crédito do cliente
+        titular (str): Nome do cliente
+        conta_corrente (int): Numero da conta corrente a qual o cartão está vinculado
+        senha (int): Senha do cartão
     """
 
     # método estático para armazenar informações de data e hora
