@@ -77,10 +77,11 @@ class ContaCorrente:
         conta_destino._transacoes.append(('Transferência: R$ {}, Novo saldo: R$ {}, Data/Hora: {}'.format(valor, conta_destino._saldo, ContaCorrente._data_hora())))
 
 
+# criação da classe CartaoCredito
 class CartaoCredito:
 
     """
-    Cria um objeto CartaoCredito para gerênciar os cartões de credito do cliente
+    Cria um objeto CartaoCredito para gerênciar os cartões de crédito do cliente
 
     Atributos:
         num_cartao (int): Número do cartão do cliente (gerado aleatóriamente)
@@ -110,10 +111,12 @@ class CartaoCredito:
         self._senha = '1234'
         conta_corrente.cartoes_credito.append(self)
 
+    # metodo getter
     @property
     def senha(self):
         return self._senha
 
+    # metodo setter
     @senha.setter
     def senha(self, valor):
         if len(valor) == 4 and valor.isnumeric():
