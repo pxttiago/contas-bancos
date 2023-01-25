@@ -1,3 +1,6 @@
+from random import randint
+
+
 class Agencia:
 
     """
@@ -39,3 +42,28 @@ class Agencia:
     # método para cadastro dos clientes da agência
     def adicionar_cliente(self, nome, cpf, patrimonio):
         self.clientes.append((nome, cpf, patrimonio))
+
+
+# criação da subclasse AgenciaVirtual herdando as características da classe Agencia
+class AgenciaVirtual(Agencia):
+
+    def __init__(self, site, telefone, cnpj):
+        self.site = site
+        super().__init__(telefone, cnpj, 1000)
+        self.caixa = 1000000
+
+
+# criação da subclasse AgenciaComum herdando as características da classe Agencia
+class AgenciaComum(Agencia):
+
+    def __init__(self, telefone, cnpj):
+        super().__init__(telefone, cnpj, num_agencia=randint(1001, 9999))
+        self.caixa = 1000000
+
+
+# criação da subclasse AgenciaPremium herdando as características da classe Agencia
+class AgenciaPremium(Agencia):
+
+    def __init__(self, telefone, cnpj):
+        super().__init__(telefone, cnpj, num_agencia=randint(1001, 9999))
+        self.caixa = 100000000
