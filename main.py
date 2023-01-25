@@ -34,3 +34,8 @@ agencia_premium = AgenciaPremium(telefone=9988886666, cnpj='11333555/0001-77')
 agencia_premium.verificar_caixa()
 print('-=' * 20)
 
+# depositando valor da AgendiaVirtual no caixa paypal
+agencia_virtual.depositar_paypal(valor=50000)
+print(agencia_virtual.caixa)
+print(agencia_virtual.caixa_paypal)
+print('-=' * 20)

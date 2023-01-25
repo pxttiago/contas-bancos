@@ -47,10 +47,27 @@ class Agencia:
 # criação da subclasse AgenciaVirtual herdando as características da classe Agencia
 class AgenciaVirtual(Agencia):
 
+    # atributos da subclasse AgenciaVirtual
     def __init__(self, site, telefone, cnpj):
         self.site = site
         super().__init__(telefone, cnpj, 1000)
         self.caixa = 1000000
+        self.caixa_paypal = 0
+
+    # métodos específicos da subclasse AgenciaVirtual
+    def depositar_paypal(self, valor):
+        if valor < self.caixa:
+            self.caixa -= valor
+            self.caixa_paypal += valor
+        else:
+            print('Saldo insuficiente em caixa na agência.')
+
+    def sacar_paypal(self, valor):
+        if valor < self.caixa_paypal:
+            self.caixa_paypal -= valor
+            self.caixa += valor
+        else:
+            print('Saldo insuficiente em caixa no paypal.')
 
 
 # criação da subclasse AgenciaComum herdando as características da classe Agencia
