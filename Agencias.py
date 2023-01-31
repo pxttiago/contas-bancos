@@ -84,3 +84,9 @@ class AgenciaPremium(Agencia):
     def __init__(self, telefone, cnpj):
         super().__init__(telefone, cnpj, num_agencia=randint(1001, 9999))
         self.caixa = 100000000
+
+    def adicionar_cliente(self, nome, cpf, patrimonio):
+        if patrimonio > 1000000:
+            super().adicionar_cliente(nome, cpf, patrimonio)
+        else:
+            print('O cliente não possui o patrimônio mínimo exigido para entrar na Agência Premium.')

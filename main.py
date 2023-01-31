@@ -39,3 +39,6 @@ agencia_virtual.depositar_paypal(valor=50000)
 print(agencia_virtual.caixa)
 print(agencia_virtual.caixa_paypal)
 print('-=' * 20)
+
+# tentando adicionar cliente abaixo do patrimônio mínimo na agência premium
+agencia_premium.adicionar_cliente('Beltrano', '999.666.333-11', 500000)
